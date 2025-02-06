@@ -1,13 +1,24 @@
-export function createFooter() {
-    const footer = document.createElement('footer');
-    footer.className = 'footer bg-dark text-center text-lg-start';
-
-    const div = document.createElement('div');
-    div.className = 'text-center p-3';
-    div.style.backgroundColor = 'rgba(0, 0, 0, 0.2)';
-    div.innerHTML = '© Mundane.io';
-
-    footer.appendChild(div);
-
-    document.body.appendChild(footer);
+export function loadHeader() {
+    const header = document.createElement('header');
+    header.innerHTML = `
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="/" data-link>mundane.io</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/" data-link>Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/projects" data-link>Projects</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    `;
+    document.getElementById('app').appendChild(header);
 }

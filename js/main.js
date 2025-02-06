@@ -1,18 +1,32 @@
-import { createHeader } from './components/header.js';
-import { createFooter } from './components/footer.js';
-import { loadHomeContent } from './page/home.js';
-// Remove this import if it's still present
-// import { createSocialLinks } from './components/socials.js';
+import { loadHeader } from './components/header.js';
+import { loadFooter } from './components/footer.js';
+import { loadHome } from './page/home.js';
+import { loadProjects } from './page/projects.js';
 
-document.addEventListener("DOMContentLoaded", function() {
-    createHeader();
+const routes = {
+    '/': loadHome,
+    '/projects': loadProjects
+};
+
+async function router() {
+    const path = window.location.pathname;
+    const app = document.getElementById('app');
+    app.innerHTML = '';
     
-    const contentDiv = document.createElement('div');
-    contentDiv.setAttribute('id', 'content');
-    document.body.appendChild(contentDiv);
-    
-    const homeContent = loadHomeContent();
-    contentDiv.appendChild(homeContent());
-    
-    createFooter();
+    await loadHeader();
+    await routes[path]();
+    await loadFooter();
+}
+
+window.addEventListener('popstate', router);
+document.addEventListener('DOMContentLoaded', () => {
+    document.body.addEventListener('click', (e) => {
+        if (e.target.matches('[data-link]')) {
+            e.preventDefault();
+            const href = e.target.getAttribute('href');
+            window.history.pushState(null, null, href);
+            router();
+        }
+    });
+    router();
 });
