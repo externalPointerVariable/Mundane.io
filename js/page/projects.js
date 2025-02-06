@@ -15,7 +15,7 @@ export async function loadProjects() {
     document.getElementById('app').appendChild(main);
     
     // Dynamically load projects
-    const projects = await import('../../js/projects/');
+    const projects = await import('../projects/');
     const sidebar = document.getElementById('sidebar');
     const container = document.getElementById('projects-container');
     
