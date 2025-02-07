@@ -5,7 +5,7 @@ export async function loadProjects() {
     div.innerHTML = `
         <div class="row">
             <div class="col-md-3">
-                <div id="sidebar" class="sticky-top"></div>
+                <div id="sidebar" class="sticky-top bg-white rounded"></div>
             </div>
             <div class="col-md-9">
                 <div id="projects-container"></div>

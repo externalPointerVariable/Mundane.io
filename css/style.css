@@ -48,3 +48,7 @@ pre code {
     background-color: #f8f9fa;
     color: #0d6efd;
 }
+
+body{
+    background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+}
