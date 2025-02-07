@@ -1,10 +1,9 @@
-// js/components/header.js
 export function loadHeader() {
     const header = document.createElement('header');
     header.innerHTML = `
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded-bottom">
             <div class="container">
-                <a class="navbar-brand" href="#/" data-link>mundane.io</a>
+                <a class="navbar-brand lead text-warning" href="#/" data-link>mundane.io</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>

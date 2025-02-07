@@ -38,14 +38,15 @@ export async function loadProjects() {
         projectCard.id = `project-${index}`;
         projectCard.innerHTML = `
             <div class="card-body">
-                <h5 class="card-title">${project.title}</h5>
+                <h5 class="card-title font-monospace">${project.title}</h5>
                 <div class="row g-4">
                     <div class="col-md-6 output-container">
                         ${project.html}
                     </div>
-                    <div class="col-md-6 code-container position-relative">
-                        <pre><code>${project.code}</code></pre>
-                        <button class="btn btn-sm btn-secondary copy-btn">
+                    <div class="col-md-6 code-container position-relative bg-black">
+                        <pre><code class = "text-white">${project.code}</code></pre>
+                        <button class="btn btn-sm btn-secondary copy-btn text-info">
+                            <i class="bi bi-copy"></i>
                             Copy Code
                         </button>
                     </div>
