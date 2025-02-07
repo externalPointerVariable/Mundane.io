@@ -1,7 +1,8 @@
+// js/page/projects.js
 export async function loadProjects() {
-    const main = document.createElement('main');
-    main.className = 'container my-5';
-    main.innerHTML = `
+    const div = document.createElement('div');
+    div.className = 'container my-5';
+    div.innerHTML = `
         <div class="row">
             <div class="col-md-3">
                 <div id="sidebar" class="sticky-top"></div>
@@ -12,18 +13,21 @@ export async function loadProjects() {
         </div>
     `;
     
-    document.getElementById('app').appendChild(main);
+    document.getElementById('app').appendChild(div);
     
     // Dynamically load projects
-    const projects = await import('../projects/');
+    const projectsModule = await import('../projects/index.js');
+    const projects = Object.values(projectsModule);
     const sidebar = document.getElementById('sidebar');
     const container = document.getElementById('projects-container');
     
-    Object.entries(projects).forEach(([name, project], index) => {
+    projects.forEach((project, index) => {
+        const projectName = `Project ${index + 1}`;
+        
         // Add to sidebar
         sidebar.innerHTML += `
             <a href="#project-${index}" class="d-block mb-2 text-decoration-none">
-                ${name}
+                ${project.title}
             </a>
         `;
         
@@ -33,7 +37,7 @@ export async function loadProjects() {
         projectCard.id = `project-${index}`;
         projectCard.innerHTML = `
             <div class="card-body">
-                <h5 class="card-title">${name}</h5>
+                <h5 class="card-title">${project.title}</h5>
                 <div class="row g-4">
                     <div class="col-md-6 output-container">
                         ${project.html}
@@ -47,6 +51,7 @@ export async function loadProjects() {
                 </div>
             </div>
         `;
+
         container.appendChild(projectCard);
     });
 

@@ -4,28 +4,27 @@ import { loadHome } from './page/home.js';
 import { loadProjects } from './page/projects.js';
 
 const routes = {
-    '/': loadHome,
-    '/projects': loadProjects
+    '#/': loadHome,
+    '#/projects': loadProjects
 };
 
 async function router() {
-    const path = window.location.pathname;
+    const hash = window.location.hash || '#/';
     const app = document.getElementById('app');
     app.innerHTML = '';
     
     await loadHeader();
-    await routes[path]();
+    await routes[hash]();
     await loadFooter();
 }
 
-window.addEventListener('popstate', router);
+window.addEventListener('hashchange', router);
 document.addEventListener('DOMContentLoaded', () => {
     document.body.addEventListener('click', (e) => {
         if (e.target.matches('[data-link]')) {
             e.preventDefault();
             const href = e.target.getAttribute('href');
-            window.history.pushState(null, null, href);
-            router();
+            window.location.hash = href;
         }
     });
     router();
