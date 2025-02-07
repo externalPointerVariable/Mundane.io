@@ -18,16 +18,17 @@ export async function loadProjects() {
     // Dynamically load projects
     const projectsModule = await import('../projects/index.js');
     const projects = Object.values(projectsModule);
+    console.log(projects);
     const sidebar = document.getElementById('sidebar');
     const container = document.getElementById('projects-container');
     
     projects.forEach((project, index) => {
-        const projectName = `Project ${index + 1}`;
+        const projectName = project.title;
         
         // Add to sidebar
         sidebar.innerHTML += `
             <a href="#project-${index}" class="d-block mb-2 text-decoration-none">
-                ${project.title}
+                ${projectName}
             </a>
         `;
         
