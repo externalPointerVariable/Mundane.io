@@ -3,7 +3,7 @@ export function loadFooter() {
     footer.className = 'bg-dark text-light py-4 mt-5 fixed-bottom';
     footer.innerHTML = `
         <div class="container text-center rounded-top">
-            <a href="https://github.com" class="text-light text-decoration-none text-grey">
+            <a href="https://github.com/externalPointerVariable/Mundane.io" class="text-light text-decoration-none text-grey">
                 <p>mundane.io. Feel free to contribute your project.</p>
             </a>
         </div>
