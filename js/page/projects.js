@@ -1,4 +1,3 @@
-// js/page/projects.js
 export async function loadProjects() {
     const div = document.createElement('div');
     div.className = 'container my-5';
@@ -7,35 +6,42 @@ export async function loadProjects() {
             <div class="col-md-3">
                 <div id="sidebar" class="sticky-top bg-white rounded"></div>
             </div>
-            <div class="col-md-9">
-                <div id="projects-container"></div>
+            <div class="col-md-9 d-flex justify-content-center">
+                <div id="projects-container" class="w-100 pt-0"></div>
             </div>
         </div>
     `;
-    
     document.getElementById('app').appendChild(div);
-    
+
     // Dynamically load projects
     const projectsModule = await import('../projects/index.js');
     const projects = Object.values(projectsModule);
-    console.log(projects);
+
     const sidebar = document.getElementById('sidebar');
     const container = document.getElementById('projects-container');
-    
+    const projectScripts = document.getElementById('projectscripts');
+
+    const escapeHTML = str => str.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
     projects.forEach((project, index) => {
         const projectName = project.title;
-        
+
         // Add to sidebar
-        sidebar.innerHTML += `
-            <a href="#project-${index}" class="d-block mb-2 text-decoration-none">
-                ${projectName}
-            </a>
-        `;
-        
+        const sidebarLink = document.createElement('a');
+        sidebarLink.href = `#project-${index}`;
+        sidebarLink.className = 'd-block mb-2 text-decoration-none';
+        sidebarLink.textContent = projectName;
+        sidebarLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            showProject(index);
+        });
+        sidebar.appendChild(sidebarLink);
+
         // Add project card
         const projectCard = document.createElement('div');
         projectCard.className = 'card mb-4 project-card';
         projectCard.id = `project-${index}`;
+        projectCard.style.display = 'none';
         projectCard.innerHTML = `
             <div class="card-body">
                 <h5 class="card-title font-monospace">${project.title}</h5>
@@ -44,26 +50,45 @@ export async function loadProjects() {
                         ${project.html}
                     </div>
                     <div class="col-md-6 code-container position-relative bg-black">
-                        <pre><code class = "text-white">${project.code}</code></pre>
+                        <pre><code class="text-white">
+                            --HTML-- <br> ${escapeHTML(project.html)}
+                            <hr>
+                            --JavaScript-- <br> ${project.code}
+                        </code></pre>
                         <button class="btn btn-sm btn-secondary copy-btn text-info">
-                            <i class="bi bi-copy"></i>
-                            Copy Code
+                            <i class="bi bi-copy"></i> Copy Code
                         </button>
                     </div>
                 </div>
             </div>
         `;
-
         container.appendChild(projectCard);
+
+        projectScripts.innerHTML += project.code;
     });
 
-    // Add copy functionality
+    // Show the first project by default
+    showProject(0);
+
     document.querySelectorAll('.copy-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             const code = btn.parentElement.querySelector('code').innerText;
             navigator.clipboard.writeText(code);
             btn.textContent = 'Copied!';
-            setTimeout(() => btn.textContent = 'Copy Code', 2000);
+            setTimeout(() => btn.innerHTML = '<i class="bi bi-copy"></i> Copy Code', 2000);
         });
+    });
+}
+
+function showProject(index) {
+    const projects = document.querySelectorAll('.project-card');
+    projects.forEach((project, i) => {
+        if (i === index) {
+            project.style.display = 'block';
+            project.classList.add('fade-up-animation');
+        } else {
+            project.style.display = 'none';
+            project.classList.remove('fade-up-animation');
+        }
     });
 }
