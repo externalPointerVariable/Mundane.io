@@ -19,7 +19,6 @@ export async function loadProjects() {
 
     const sidebar = document.getElementById('sidebar');
     const container = document.getElementById('projects-container');
-    const projectScripts = document.getElementById('projectscripts');
 
     const escapeHTML = str => str.replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
@@ -63,8 +62,10 @@ export async function loadProjects() {
             </div>
         `;
         container.appendChild(projectCard);
-
-        projectScripts.innerHTML += project.code;
+        // Create and append the script element
+        const script = document.createElement('script');
+        script.textContent = project.code;
+        projectCard.querySelector('.output-container').appendChild(script);
     });
 
     // Show the first project by default
