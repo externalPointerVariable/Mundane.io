@@ -1,5 +1,5 @@
 export const ClockProject={
-    title: 'Clock',
+    title: 'Clock⏰',
     code : `setInterval(() => {
     const date = new Date();
     const time = date.toLocaleTimeString();
