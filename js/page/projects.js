@@ -62,10 +62,11 @@ export async function loadProjects() {
             </div>
         `;
         container.appendChild(projectCard);
-        // Create and append the script element
-        const script = document.createElement('script');
-        script.textContent = project.code;
-        projectCard.querySelector('.output-container').appendChild(script);
+        if (project.code.trim()) {
+            const script = document.createElement('script');
+            script.textContent = project.code;
+            projectCard.querySelector('.output-container').appendChild(script);
+        }
     });
 
     // Show the first project by default
