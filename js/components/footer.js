@@ -4,7 +4,7 @@ export function loadFooter() {
     footer.innerHTML = `
         <div class="container text-center rounded-top">
             <a href="https://github.com/externalPointerVariable/Mundane.io" class="text-light text-decoration-none text-grey">
-                <p>mundane.io. Feel free to contribute your project.</p>
+                <p><span class="text-warning">mundane.io</span>. Feel free to contribute your project.</p>
             </a>
         </div>
     `;
