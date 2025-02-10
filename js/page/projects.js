@@ -52,7 +52,7 @@ export async function loadProjects() {
                         <pre><code class="text-white">
                             --HTML-- <br> ${escapeHTML(project.html)}
                             <hr>
-                            --JavaScript-- <br> ${project.code}
+                            --JavaScript-- <br> ${escapeHTML(project.code)}
                         </code></pre>
                         <button class="btn btn-sm btn-secondary copy-btn text-info">
                             <i class="bi bi-copy"></i> Copy Code
