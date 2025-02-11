@@ -9,6 +9,7 @@ export async function loadHome() {
     main.className = 'container my-5';
     main.innerHTML = `
         <section class="text-center translate-x-6">
+            <img src="assets/Hero.png" alt="Mundane.io" class="img-fluid" style="width: 200px">
             <h1 class="display-1 mb-3 p-5 pb-2 text-warning font-monospace">Mundane.io</h1>
             <p class="blockquote text-white">A collection of basic <kbd class="text-info">JavaScript</kbd> projects to help you learn and experiment</p>
             <a href="/projects" class="btn btn-warning btn-lg mt-3" data-link>Explore Projects</a>

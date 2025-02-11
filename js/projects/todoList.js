@@ -7,6 +7,39 @@ export const todoList = {
         document.addEventListener('DOMContentLoaded', loadTodos);
         todoForm.addEventListener('submit', addTodo);
 
+        function addTodo (e) {
+            e.preventDefault();
+            const title = document.getElementById('todotitle').value;
+            const description = document.getElementById('tododescription').value;
+            const date = new Date().toLocaleDateString();
+            const todo = { title, description, date };
+            localStorage.setItem(title, JSON.stringify(todo));
+            loadTodos();
+        }
+
+        function loadTodos () {
+            todoOutput.innerHTML = '';
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                const todo = JSON.parse(localStorage.getItem(key));
+                todoOutput.innerHTML += \`
+                    <tr>
+                        <td>\${todo.title}</td>
+                        <td>\${todo.description}</td>
+                        <td>\${todo.date}</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm" onclick="deleteTodo('\${todo.title}')">Delete</button>
+                        </td>
+                    </tr>
+                \`;
+            }
+        }
+
+        function deleteTodo (title) {
+            localStorage.removeItem(title);
+            loadTodos();
+        }
+
     `,
     html: `
     <div class="rounded alert alert-warning">
